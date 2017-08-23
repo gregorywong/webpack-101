@@ -13,7 +13,8 @@ var cssConfig = isProd ? cssProd : cssDev;
 module.exports = {
     entry: {
         app: './src/app.jsx',
-        contact: './src/contact.jsx'
+        contact: './src/contact.jsx',
+        "pug-test": './src/pug-test.jsx'
     },
     output: {
         path: __dirname + '/dist',
@@ -28,7 +29,11 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader'
+                use: 'babel-loader'
+            },
+            {
+                test: /\.pug$/,
+                use: ['html-loader', 'pug-html-loader']
             }
         ]
     },
@@ -44,7 +49,8 @@ module.exports = {
             minify: {
                 collapseWhitespace: isProd
             },
-            excludeChunks: ['contact'],
+            // excludeChunks: ['contact'],
+            chunks: ['app'],
             template: './src/index.ejs'
         }),
         new HtmlWebpackPlugin({
@@ -55,6 +61,15 @@ module.exports = {
             chunks: ['contact'],
             filename: 'contact.html',
             template: './src/contact.ejs'
+        }),
+        new HtmlWebpackPlugin({
+            title: "Pug Test Page",
+            minify: {
+                collapseWhitespace: isProd
+            },
+            chunks: ['pug-test'],
+            filename: 'pug-test.html',
+            template: './src/pug-test.pug'
         }),
         new ExtractTextPlugin('app.css')
     ]
