@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 var isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    entry: './src/app.js',
+    entry: './src/app.jsx',
     output: {
         path: __dirname + '/dist',
         filename: 'app.bundle.js'
