@@ -38,6 +38,14 @@ module.exports = {
             },
             template: './src/index.ejs'
         }),
+        new HtmlWebpackPlugin({
+            title: "Contact Page",
+            minify: {
+                collapseWhitespace: isProd
+            },
+            filename: 'contact.html',
+            template: './src/contact.ejs'
+        }),
         new ExtractTextPlugin('app.css')
     ]
 
