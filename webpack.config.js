@@ -24,6 +24,11 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: cssConfig
+            },
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
             }
         ]
     },
