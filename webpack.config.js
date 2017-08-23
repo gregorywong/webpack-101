@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 
 var isProd = process.env.NODE_ENV === 'production';
 var cssProd = ExtractTextPlugin.extract({
@@ -22,6 +23,11 @@ module.exports = {
                 use: cssConfig
             }
         ]
+    },
+    devServer: {
+        contentBase: path.join(__dirname, "dist"),
+        compress: true,
+        open: true
     },
     plugins: [
         new HtmlWebpackPlugin({
