@@ -1,6 +1,10 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var isProd = process.env.NODE_ENV === 'production';
+var cssProd = ['style-loader', 'css-loader', 'sass-loader'];
+var cssDev = ['style-loader', 'css-loader', 'sass-loader'];
+var cssConfig = isProd ? cssProd : cssDev;
+
 
 module.exports = {
     entry: './src/app.jsx',
@@ -12,7 +16,7 @@ module.exports = {
         rules: [
             {
                 test: /\.scss$/,
-                use: ['style-loader', 'css-loader', 'sass-loader']
+                use: cssConfig
             }
         ]
     },
