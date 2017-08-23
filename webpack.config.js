@@ -11,10 +11,13 @@ var cssDev = ['style-loader', 'css-loader', 'sass-loader'];
 var cssConfig = isProd ? cssProd : cssDev;
 
 module.exports = {
-    entry: './src/app.jsx',
+    entry: {
+        app: './src/app.jsx',
+        contact: './src/contact.jsx'
+    },
     output: {
         path: __dirname + '/dist',
-        filename: 'app.bundle.js'
+        filename: '[name].bundle.js'
     },
     module: {
         rules: [
@@ -36,6 +39,7 @@ module.exports = {
             minify: {
                 collapseWhitespace: isProd
             },
+            excludeChunks: ['contact'],
             template: './src/index.ejs'
         }),
         new HtmlWebpackPlugin({
@@ -43,6 +47,7 @@ module.exports = {
             minify: {
                 collapseWhitespace: isProd
             },
+            chunks: ['contact'],
             filename: 'contact.html',
             template: './src/contact.ejs'
         }),
