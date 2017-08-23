@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack -d --watch",
-    "prod": "webpack -p"
+    "prod": "NODE_ENV=production webpack -p"
   },
   "author": "Greg Wong",
   "license": "ISC",
