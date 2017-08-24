@@ -37,6 +37,18 @@ module.exports = {
             {
                 test: /\.pug$/,
                 use: ['html-loader', 'pug-html-loader']
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'images/'
+                        }
+                    }
+                ]
             }
         ]
     },
