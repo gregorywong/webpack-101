@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
 const path = require('path');
 
 var isProd = process.env.NODE_ENV === 'production';
@@ -9,6 +10,8 @@ var cssProd = ExtractTextPlugin.extract({
 });
 var cssDev = ['style-loader', 'css-loader', 'sass-loader'];
 var cssConfig = isProd ? cssProd : cssDev;
+
+var usingHMR = false;
 
 module.exports = {
     entry: {
@@ -41,6 +44,7 @@ module.exports = {
         contentBase: path.join(__dirname, "dist"),
         compress: true,
         stats: "errors-only",
+        hot: usingHMR,
         open: true
     },
     plugins: [
@@ -71,7 +75,13 @@ module.exports = {
             filename: 'pug-test.html',
             template: './src/pug-test.pug'
         }),
-        new ExtractTextPlugin('app.css')
+        new ExtractTextPlugin({
+            filename: 'app.css',
+            disable: !isProd,
+            allChunks: true
+        }),
+        new webpack.HotModuleReplacementPlugin({
+            disable: !usingHMR
+        })
     ]
-
 }
