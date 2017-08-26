@@ -1,7 +1,7 @@
 {
   "name": "webpack-101",
   "version": "1.0.0",
-  "description": "Webpack 101 video tutorial.",
+  "description": "Following the Webpack 101 video tutorial.",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server",
