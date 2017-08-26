@@ -3,18 +3,20 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 const bootstrapEntryPoints = require('./webpack.bootstrap.config');
+const glob = require('glob');
+const PurifyCSSPlugin = require('purifycss-webpack');
 
-var isProd = process.env.NODE_ENV === 'production';
-var cssProd = ExtractTextPlugin.extract({
+const isProd = process.env.NODE_ENV === 'production';
+const cssProd = ExtractTextPlugin.extract({
     fallback: 'style-loader',
     use: ['css-loader', 'sass-loader']
 });
-var cssDev = ['style-loader', 'css-loader', 'sass-loader'];
-var cssConfig = isProd ? cssProd : cssDev;
+const cssDev = ['style-loader', 'css-loader', 'sass-loader'];
+const cssConfig = isProd ? cssProd : cssDev;
 
-var bootstrapConfig = isProd ? bootstrapEntryPoints.prod : bootstrapEntryPoints.dev;
+const bootstrapConfig = isProd ? bootstrapEntryPoints.prod : bootstrapEntryPoints.dev;
 
-var usingHMR = false;
+const usingHMR = false;
 
 module.exports = {
     entry: {
@@ -144,6 +146,10 @@ module.exports = {
             Tab: "exports-loader?Tab!bootstrap/js/dist/tab",
             Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
             Util: "exports-loader?Util!bootstrap/js/dist/util",
+        }),
+        new PurifyCSSPlugin({
+            // Give paths to parse for rules. These should be absolute!
+            paths: glob.sync(path.join(__dirname, './src/*.ejs')),
         })
     ]
 }
